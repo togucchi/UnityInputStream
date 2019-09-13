@@ -17,8 +17,8 @@ namespace Toguchi.UnityInputStream
         {
             get
             {
-                // 重複要素の除去
-                IEnumerable<InputSourceBase> sources = _inputSourceBases.Distinct();
+                // null要素, 重複要素の除去
+                IEnumerable<InputSourceBase> sources = _inputSourceBases.Where(x => x != null).Distinct();
 
                 return sources;
             }
