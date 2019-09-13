@@ -2,9 +2,6 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Toguchi.UnityInputStream
 {
@@ -25,6 +22,11 @@ namespace Toguchi.UnityInputStream
 
                 return sources;
             }
+        }
+
+        private InputSourceContainer()
+        {
+            _inputSourceBases = new List<InputSourceBase>();
         }
         
         public void AddSource(InputSourceBase inputSourceBase)
