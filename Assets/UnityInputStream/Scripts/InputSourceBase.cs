@@ -27,6 +27,10 @@ namespace Toguchi.UnityInputStream
             floatInputSubject.OnNext(floatInput);
         }
 
+        private void Awake()
+        {
+            InputSourceContainer.Instance.AddSource(this);
+        }
     }
 
     public class ValueInput
