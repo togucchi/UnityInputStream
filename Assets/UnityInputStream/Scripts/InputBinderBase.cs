@@ -31,6 +31,7 @@ namespace Toguchi.UnityInputStream
                         {
                             buttonInputProcesses[i].DeviceName = x.DeviceName;
                             buttonInputProcesses[i].Id = x.Id;
+                            buttonInputProcesses[i].isBinding = false;
                         });
 
                     source.OnButtonChanged
@@ -56,6 +57,7 @@ namespace Toguchi.UnityInputStream
                         {
                             floatInputProcesses[i].DeviceName = x.DeviceName;
                             floatInputProcesses[i].Id = x.Id;
+                            floatInputProcesses[i].isBinding = false;
                         });
 
                     source.OnFloatChanged
@@ -80,6 +82,11 @@ namespace Toguchi.UnityInputStream
             ProcessName = processName;
             DeviceName = deviceName;
             Id = id;
+        }
+
+        public InputProcess(string processName)
+        {
+            ProcessName = processName;
         }
     }
 }
