@@ -6,6 +6,9 @@
 Assets/AssetStoreTools*
 Assets/ExternalAssets*
 
+# PlayMode testing cache（たぶん）を除外
+Assets/InitTestScene*.unity*
+
 # Visual Studio cache directory
 .vs/
 
