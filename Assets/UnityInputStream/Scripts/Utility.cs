@@ -21,8 +21,6 @@ namespace Toguchi
                 FileStream file = File.Create(path);
                 bf.Serialize(file, json);
                 file.Close();
-
-                Debug.Log("writed");
             }
             else
             {
