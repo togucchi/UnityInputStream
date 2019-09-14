@@ -8,8 +8,8 @@ namespace Toguchi.UnityInputStream
 {
     public abstract class InputBinderBase : MonoBehaviour
     {
-        public List<InputProcess> buttonInputProcesses;
-        public List<InputProcess> floatInputProcesses;
+        public List<InputProcess> buttonInputProcesses = new List<InputProcess>();
+        public List<InputProcess> floatInputProcesses = new List<InputProcess>();
         
         
 
@@ -23,47 +23,52 @@ namespace Toguchi.UnityInputStream
 
             foreach (var source in sources)
             {
-                for(int i = 0; i < buttonInputProcesses.Count; i++)
+                foreach (var process in buttonInputProcesses)
                 {
                     source.OnButtonChanged
-                        .Where(x => buttonInputProcesses[i].isBinding)
+                        .Where(x => process.isBinding && x.Value)
                         .Subscribe(x =>
                         {
-                            buttonInputProcesses[i].DeviceName = x.DeviceName;
-                            buttonInputProcesses[i].Id = x.Id;
-                            buttonInputProcesses[i].isBinding = false;
+                            process.DeviceName = x.DeviceName;
+                            process.Id = x.Id;
+                            process.isBinding = false;
                         });
 
                     source.OnButtonChanged
-                        .Where(x => buttonInputProcesses[i].DeviceName == x.DeviceName && buttonInputProcesses[i].Id == x.Id)
+                        .Where(x => process.DeviceName == x.DeviceName && process.Id == x.Id)
                         .Subscribe(x =>
                         {
+                            int index = buttonInputProcesses.IndexOf(process);
                             if (x.Value)
                             {
-                                OnButtonPushed(buttonInputProcesses[i].ProcessName, i);
+                                OnButtonPushed(process.ProcessName, index);
                             }
                             else
                             {
-                                OnButtonReleased(buttonInputProcesses[i].ProcessName, i);
+                                OnButtonReleased(process.ProcessName, index);
                             }
                         });
                 }
                 
-                for(int i = 0; i < floatInputProcesses.Count; i++)
+                foreach(var process in floatInputProcesses)
                 {
                     source.OnFloatChanged
-                        .Where(x => floatInputProcesses[i].isBinding)
+                        .Where(x => process.isBinding)
                         .Subscribe(x =>
                         {
-                            floatInputProcesses[i].DeviceName = x.DeviceName;
-                            floatInputProcesses[i].Id = x.Id;
-                            floatInputProcesses[i].isBinding = false;
+                            process.DeviceName = x.DeviceName;
+                            process.Id = x.Id;
+                            process.isBinding = false;
                         });
 
                     source.OnFloatChanged
-                        .Where(x => floatInputProcesses[i].DeviceName == x.DeviceName &&
-                                    floatInputProcesses[i].Id == x.Id)
-                        .Subscribe(x => { OnFloatChanged(floatInputProcesses[i].ProcessName, i, x.Value); });
+                        .Where(x => process.DeviceName == x.DeviceName &&
+                                    process.Id == x.Id)
+                        .Subscribe(x =>
+                        {
+                            int index = floatInputProcesses.IndexOf(process);
+                            OnFloatChanged(process.ProcessName, index, x.Value);
+                        });
                 }
             }
         }
