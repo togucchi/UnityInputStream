@@ -25,19 +25,29 @@ namespace  Toguchi.UnityInputStream
 
         private void DetectNoteOn(MidiChannel channel, int note, float velocity)
         {
-            Debug.Log("Device : " + channel + " ; Note : " + note + " ; Velocity" + velocity);
+            // Debug.Log("Device : " + channel + " ; Note : " + note + " ; Velocity" + velocity);
         }
 
         private void DetectNoteOff(MidiChannel channel, int note)
         {
-            Debug.Log("Device : " + channel + " ; Note : " + note);
+            // Debug.Log("Device : " + channel + " ; Note : " + note);
 
         }
 
         private void DetectKnob(MidiChannel channel, int knobNumber, float knobValue)
         {
             Debug.Log("Device : " + channel + " ; KnobNumber : " + knobNumber + " ; KnobValue : " + knobValue);
+            
+            PublishFloatInput(channel.ToString(), knobNumber.ToString(), knobValue);
 
+            if (knobValue == 1f)
+            {
+                PublishButtonInput(channel.ToString(), knobNumber.ToString(), true);
+            }
+            else if (knobValue == 0f)
+            {
+                PublishButtonInput(channel.ToString(), knobNumber.ToString(), false);
+            }
         }
     }
 }
