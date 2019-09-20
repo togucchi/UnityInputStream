@@ -14,8 +14,7 @@ namespace Tests
         private class InputBinder_MinimumTest : InputBinderBase, IMonoBehaviourTest
         {
             public bool IsTestFinished { get; private set; }
-
-            private int state = 0;
+            
             private InputProcess process;
             private InputProcess floatProcess;
             private InputProcess finishProcess;
