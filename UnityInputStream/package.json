@@ -1,0 +1,9 @@
+{
+    "name": "com.toguchi.inputstream",
+    "displayName": "UnityInputStream",     
+    "version": "1.0.0", 
+    "unity": "2019.2",          
+    "description": "Input System compatible with UniRx",
+    "dependencies": {    
+    }
+}
